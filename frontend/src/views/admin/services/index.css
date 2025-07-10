@@ -1,0 +1,69 @@
+/* .mui-339f7v-MuiInputBase-input-MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline) {
+    padding: 8px !important;
+    position: relative;
+    text-align: center;
+} */
+
+/* Hide scrollbars for TimePicker components but keep scrolling functionality */
+.MuiPickersLayout-contentWrapper,
+.MuiMultiSectionDigitalClockSection-root,
+.MuiTimeClockTabs-root {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+  overflow: auto !important;
+}
+
+.MuiPickersLayout-contentWrapper::-webkit-scrollbar,
+.MuiMultiSectionDigitalClockSection-root::-webkit-scrollbar,
+.MuiTimeClockTabs-root::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Edge */
+}
+
+/* Fix TimePicker width and padding */
+.MuiPickersLayout-root {
+  max-width: fit-content !important;
+  min-width: auto !important;
+}
+
+.MuiPickersLayout-contentWrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.MuiMultiSectionDigitalClock-root {
+  padding: 0 !important;
+  max-width: fit-content !important;
+}
+
+.MuiDigitalClockItem-root {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+/* Additional fixes for compact view */
+.MuiClock-root {
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.MuiPickersToolbar-root {
+  padding: 8px !important;
+}
+
+.MuiPickersLayout-actionBar {
+  padding: 0 8px 8px 8px !important;
+}
+
+.MuiPickersLayout-root .MuiDialogActions-root {
+  padding: 8px !important;
+}
+
+.MuiPickersPopper-paper {
+  max-width: fit-content !important;
+}
+
+.MuiClock-clock {
+  width: 200px !important;
+  height: 200px !important;
+}

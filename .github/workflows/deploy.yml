@@ -1,0 +1,76 @@
+name: Deploy AYASCALENDAR to Azure App Service
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.20.0'
+
+    # Set frontend build-time environment variables
+    - name: Setup frontend build env
+      run: |
+        echo "NEXT_PUBLIC_APP_URL=${{ vars.NEXT_PUBLIC_APP_URL }}" >> $GITHUB_ENV    
+        echo "NEXT_PUBLIC_API_BASE_URL=${{ vars.NEXT_PUBLIC_API_BASE_URL }}" >> $GITHUB_ENV
+        echo "NEXT_PUBLIC_FORGOT_PASSWORD_URL=${{ vars.NEXT_PUBLIC_FORGOT_PASSWORD_URL }}" >> $GITHUB_ENV    
+        echo "NEXT_PUBLIC_SUPPORT_BOOKING_URL=${{ vars.NEXT_PUBLIC_SUPPORT_BOOKING_URL }}" >> $GITHUB_ENV
+
+    # ----- FRONTEND BUILD -----
+    - name: Install and build frontend
+      working-directory: ./frontend
+      run: |
+        npm install --legacy-peer-deps --ignore-scripts
+        npm run build:icons
+        npm run build
+
+    # ----- BACKEND BUILD -----
+    - name: Install and build backend
+      working-directory: ./backend
+      run: |
+        npm install --legacy-peer-deps
+        npm run build
+
+    # ----- PREPARE CLEAN OUTPUT FOLDER -----
+    - name: Prepare output folder for deployment
+      run: |
+        mkdir -p backend/output/frontend
+        cp -r backend/dist backend/output/
+        cp backend/package*.json backend/output/
+
+        # Frontend build
+        cp -r frontend/.next backend/output/frontend/
+        cp -r frontend/public backend/output/frontend/
+        cp frontend/next.config.ts backend/output/frontend/ || true
+        cp frontend/package*.json backend/output/frontend/
+        
+        # Ensure node_modules are in the correct location
+        cp -r frontend/node_modules backend/output/frontend/
+
+    # ----- INSTALL PROD DEPENDENCIES ONLY -----
+    - name: Install backend production dependencies
+      working-directory: ./backend/output
+      run: npm install --production --legacy-peer-deps --ignore-scripts
+
+    - name: Install frontend production dependencies
+      working-directory: ./backend/output/frontend
+      run: npm install --production --legacy-peer-deps --ignore-scripts
+
+    # ----- DEPLOY TO AZURE -----
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: './backend/output'
