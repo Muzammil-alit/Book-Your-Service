@@ -281,9 +281,14 @@ const ClientProfilePage = () => {
           schema
             .required('Password is required')
             .min(8, 'Password must be at least 8 characters long')
-            .max(18, 'Password must be at most 18 characters long'),
+            .max(50, 'Password must be at most 18 characters long')
+            .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+            .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+            .matches(/\d/, 'Password must contain at least one number')
+            .matches(/[!@#$%^&*()\-_=+{};:,<.>]/, 'Password must contain at least one special character'),
         otherwise: (schema) => schema.notRequired(),
       }),
+
 
     confirmPassword: yup
       .string()
@@ -292,7 +297,7 @@ const ClientProfilePage = () => {
         then: (schema) =>
           schema
             .required('Confirm Password is required')
-            .oneOf([yup.ref('password')], 'The passwords do not match.'),
+            .oneOf([yup.ref('password')], 'Passwords must match'),
         otherwise: (schema) => schema.notRequired(),
       }),
 
@@ -362,7 +367,7 @@ const ClientProfilePage = () => {
 
     const formdata = {
       ...formData,
-      updatedOn: prevData.UpdatedOn,
+      updatedOn: prevData?.UpdatedOn,
       active: true,
     }
 
@@ -466,7 +471,7 @@ const ClientProfilePage = () => {
 
   const fetchBookings = async () => {
     try {
-      const apiBookings = await getMyBookingsApiCall(clientID) as any;
+      const apiBookings = await getMyBookingsApiCall(clientID as number) as any;
 
       setBooking(countPendingAndUpcomingBookings(apiBookings)); // Update state with fetched data
     } catch (error) {

@@ -47,7 +47,7 @@ const defaultValues = {
 
 const ChangePasswordSideModal = ({ open, onClose }: ChangePasswordSideModalProps) => {
   const dispatch = useDispatch()
-  const user = useAppSelector((state) => state.authReducer.admin.user)
+  const user = useAppSelector((state: any) => state.authReducer.admin.user)
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -131,7 +131,7 @@ const ChangePasswordSideModal = ({ open, onClose }: ChangePasswordSideModalProps
                         onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                         onMouseDown={(e) => e.preventDefault()}
                       >
-                        <Icon icon={showCurrentPassword ? 'ri:eye-off-line' : 'ri:eye-line'} />
+                        <Icon icon={showCurrentPassword ? 'ri-eye-off-line' : 'ri-eye-line'} />
                       </IconButton>
                     </InputAdornment>
                   )
@@ -159,7 +159,7 @@ const ChangePasswordSideModal = ({ open, onClose }: ChangePasswordSideModalProps
                         onClick={() => setShowNewPassword(!showNewPassword)}
                         onMouseDown={(e) => e.preventDefault()}
                       >
-                        <Icon icon={showNewPassword ? 'ri:eye-off-line' : 'ri:eye-line'} />
+                        <Icon icon={showNewPassword ? 'ri-eye-off-line' : 'ri-eye-line'} />
                       </IconButton>
                     </InputAdornment>
                   )
@@ -187,7 +187,7 @@ const ChangePasswordSideModal = ({ open, onClose }: ChangePasswordSideModalProps
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         onMouseDown={(e) => e.preventDefault()}
                       >
-                        <Icon icon={showConfirmPassword ? 'ri:eye-off-line' : 'ri:eye-line'} />
+                        <Icon icon={showConfirmPassword ? 'ri-eye-off-line' : 'ri-eye-line'} />
                       </IconButton>
                     </InputAdornment>
                   )

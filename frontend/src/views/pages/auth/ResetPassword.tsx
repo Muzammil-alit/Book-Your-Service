@@ -116,7 +116,7 @@ const ResetPassword = ({ mode }: { mode: Mode }) => {
     if (data.password !== data.confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',
-        message: 'Passwords do not match'
+        message: 'Passwords must match'
       })
       return
     }

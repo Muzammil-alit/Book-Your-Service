@@ -8,12 +8,9 @@
       "ESNext"
     ],
     "allowJs": true,
-    
     "skipLibCheck": true,
     "strict": false,
     "noImplicitAny": false,
-
-    
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -53,8 +50,8 @@
       "@views/*": [
         "./src/views/*"
       ]
-    }
-  
+    },
+    "strictNullChecks": true
   },
   "include": [
     "next.config.ts",

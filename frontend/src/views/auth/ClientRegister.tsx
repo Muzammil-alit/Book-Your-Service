@@ -30,54 +30,36 @@ import type { Mode } from '@core/types'
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { valibotResolver } from '@hookform/resolvers/valibot'
-import { InferInput } from 'valibot'
-import { object, minLength, maxLength, string, email, pipe, nonEmpty, regex, custom } from 'valibot'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup';
 import { registerAction } from './action/register'
 
-type FormData = InferInput<typeof schema>
 
-const schema = object({
-  firstName: pipe(string(), minLength(1, 'First name is required')),
-  lastName: pipe(string(), minLength(1, 'Last name is required')),
-  emailID: pipe(string(), minLength(1, 'Email is required'), email('Please enter a valid email address')),
-  phoneNo: pipe(
-    string(),
-    minLength(1, 'Phone number is required'),
-    regex(/^[0-9+\s-]{8,15}$/, 'Please enter a valid phone number')
-  ),
-  password: pipe(
-    string(),
-    nonEmpty('Password is required'),
-    minLength(8, 'Password must be at least 8 characters long'),
-    maxLength(50, 'Password cannot be longer than 50 characters'),
-    custom(
-      val => /[A-Z]/.test(val as string),
-      'Password must contain at least one uppercase letter'
-    ),
-    custom(
-      val => /[a-z]/.test(val as string),
-      'Password must contain at least one lowercase letter'
-    ),
-    custom(
-      val => /\d/.test(val as string),
-      'Password must contain at least one number'
-    ),
-    custom(
-      val => /[!@#$%^&*()\-_=+{};:,<.>]/.test(val as string),
-      'Password must contain at least one special character'
-    )
-  ),
-  confirmPassword: pipe(
-    string(),
-    nonEmpty('Confirm Password is required')
-  ),
-  agreePolicy: pipe(
-    string(),
-    nonEmpty('You must agree to the cancellation policy')
-  ),
-  subscribeNewsletter: string()
-})
+
+const schema = yup.object().shape({
+  firstName: yup.string().required('First name is required'),
+  lastName: yup.string().required('Last name is required'),
+  emailID: yup.string()
+    .required('Email is required')
+    .email('Please enter a valid email address'),
+  phoneNo: yup.string()
+    .required('Phone number is required')
+    .matches(/^[0-9+\s-]{8,15}$/, 'Please enter a valid phone number'),
+  password: yup.string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters long')
+    .max(50, 'Password cannot be longer than 50 characters')
+    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+    .matches(/\d/, 'Password must contain at least one number')
+    .matches(/[!@#$%^&*()\-_=+{};:,<.>]/, 'Password must contain at least one special character'),
+  confirmPassword: yup.string()
+    .required('Confirm Password is required')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
+  agreePolicy: yup.string()
+    .required('You must agree to the cancellation policy'),
+  subscribeNewsletter: yup.string()
+});
 
 
 const ClientRegister = ({ mode }: { mode: Mode }) => {
@@ -96,6 +78,9 @@ const ClientRegister = ({ mode }: { mode: Mode }) => {
   const authBackground = useImageVariant(mode, lightImg, darkImg)
   const router = useRouter()
 
+  
+    type FormData = yup.InferType<typeof schema>
+
   const {
     control,
     handleSubmit,
@@ -103,7 +88,7 @@ const ClientRegister = ({ mode }: { mode: Mode }) => {
     setError,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: valibotResolver(schema),
+    resolver: yupResolver(schema),
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -133,7 +118,7 @@ const ClientRegister = ({ mode }: { mode: Mode }) => {
     if (data.password !== data.confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',
-        message: 'Passwords do not match'
+        message: 'Passwords must match'
       })
       return
     }

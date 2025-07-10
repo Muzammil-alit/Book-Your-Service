@@ -102,7 +102,7 @@ const schema = yup.object().shape({
       then: (schema) =>
         schema
           .required('Confirm Password is required')
-          .oneOf([yup.ref('password')], 'The passwords do not match.'),
+          .oneOf([yup.ref('password')], 'Passwords must match'),
       otherwise: (schema) => schema.notRequired(),
     }),
 });

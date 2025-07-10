@@ -21,8 +21,6 @@ import { createUserApiCall, getAllUsersApiCall } from './action'
 
 
 
-import { valibotResolver } from '@hookform/resolvers/valibot'
-import { object, minLength, maxLength, string, email, pipe, nonEmpty, custom } from 'valibot'
 
 
 type Props = {
@@ -40,37 +38,25 @@ type FormValidateType = {
   confirmPassword: string;
 }
 
-const schema = object({
-  firstName: pipe(string(), minLength(1, 'First name is required')),
-  lastName: pipe(string(), minLength(1, 'Last name is required')),
-  emailID: pipe(string(), minLength(1, 'Email is required'), email('Please enter a valid email address')),
-  password: pipe(
-    string(),
-    nonEmpty('Password is required'),
-    minLength(8, 'Password must be at least 8 characters long'),
-    maxLength(50, 'Password cannot be longer than 50 characters'),
-    custom(
-      val => /[A-Z]/.test(val as string),
-      'Password must contain at least one uppercase letter'
-    ),
-    custom(
-      val => /[a-z]/.test(val as string),
-      'Password must contain at least one lowercase letter'
-    ),
-    custom(
-      val => /\d/.test(val as string),
-      'Password must contain at least one number'
-    ),
-    custom(
-      val => /[!@#$%^&*()\-_=+{};:,<.>]/.test(val as string),
-      'Password must contain at least one special character'
-    )
-  ),
-  confirmPassword: pipe(
-    string(),
-    nonEmpty('Confirm Password is required')
-  )
-})
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup'
+
+const schema = yup.object().shape({
+  firstName: yup.string().required('First name is required'),
+  lastName: yup.string().required('Last name is required'),
+  emailID: yup.string().required('Email is required').email('Please enter a valid email address'),
+  password: yup.string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters long')
+    .max(50, 'Password cannot be longer than 50 characters')
+    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+    .matches(/\d/, 'Password must contain at least one number')
+    .matches(/[!@#$%^&*()\-_=+{};:,<.>]/, 'Password must contain at least one special character'),
+  confirmPassword: yup.string()
+    .required('Confirm Password is required')
+    .oneOf([yup.ref('password')], 'Passwords must match')
+});
 
 
 const AddUserDrawer = (props: Props) => {
@@ -82,14 +68,17 @@ const AddUserDrawer = (props: Props) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
 
+  type FormValidate = yup.InferType<typeof schema>
+
+
   // Hooks
   const {
     control,
     reset: resetForm,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormValidateType>({
-    resolver: valibotResolver(schema),
+  } = useForm<FormValidate>({
+    resolver: yupResolver(schema),
     defaultValues: {
       firstName: '',
       lastName: '',
