@@ -67,7 +67,7 @@ const defaultValues = {
 
 const ChangePasswordSideModal = ({ open, onClose }: ChangePasswordSideModalProps) => {
   const dispatch = useDispatch()
-  const user = useAppSelector((state) => state.authReducer.admin.user)
+  const user = useAppSelector((state: any) => state.authReducer.admin.user)
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)

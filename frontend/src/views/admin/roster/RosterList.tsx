@@ -37,7 +37,7 @@ import Menu from '@mui/material/Menu'
 
 import { getAdminRosterApiCall } from './action'
 import { toast } from 'react-toastify'
-import EditBookingDialog from '../../carer/EditBooking'
+import EditBookingDialog from '../../carer/roster/EditBooking'
 
 import { useEffect } from 'react'
 
@@ -116,7 +116,7 @@ const RosterListTable = ({ filters, setFilters }) => {
 
 
   const searchParams = useSearchParams();
-  const carerIdFromURL = searchParams.get('carerId') ? Number(searchParams.get('carerId')) : null;
+  const carerIdFromURL = searchParams?.get('carerId')  ? Number(searchParams.get('carerId')) : null;
 
 
 
@@ -243,7 +243,7 @@ const RosterListTable = ({ filters, setFilters }) => {
 
 
 
-  const { carers } = useAppSelector((state) => state.carersReducer);
+  const { carers } = useAppSelector((state: any) => state.carersReducer);
 
   
 

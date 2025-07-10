@@ -2,7 +2,7 @@
 
 
 import Grid from "@mui/material/Grid2";
-import ActivityLogListTable from "./ActivityLogsListTable";
+import ActivityLogListTable from "./ActivityLogsList";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/redux/useAppSelector";
 import React from "react";
@@ -20,8 +20,8 @@ interface Filters {
 const ActivityLogs = () => {
 
     const dispatch = useDispatch();
-    const { logs, totalRecords } = useAppSelector((state) => state.activityLogsReducer);
-    const { users } = useAppSelector((state) => state.usersReducer);
+    const { logs, totalRecords } = useAppSelector((state: any) => state.activityLogsReducer);
+    const { users } = useAppSelector((state: any) => state.usersReducer);
 
     const [loading, setLoading] = useState(false)
 

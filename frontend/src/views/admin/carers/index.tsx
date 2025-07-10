@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 const Carers = () => {
 
     const dispatch = useDispatch();
-    const { carers } = useAppSelector((state) => state.carersReducer);
+    const { carers } = useAppSelector((state: any) => state.carersReducer);
     const [loading, setLoading] = useState(false)
 
     React.useEffect(() => {

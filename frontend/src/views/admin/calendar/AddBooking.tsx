@@ -25,10 +25,10 @@ import timezone from 'dayjs/plugin/timezone';
 import { toast } from 'react-toastify';
 
 
-import { confirmBookingApiCall, getClientServicesApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
-import { getTimeslotsApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
-import { getClientCarerApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
-import { updateBookingApiCall, } from '@/app/(dashboard)/(private)/client/booking/actions';
+import { confirmBookingApiCall, getClientServicesApiCall } from '@/views/client/booking/actions';
+import { getTimeslotsApiCall } from '@/views/client/booking/actions';
+import { getClientCarerApiCall } from '@/views/client/booking/actions';
+import { updateBookingApiCall } from '@/views/client/booking/actions';
 
 
 import { getClientListApiCall } from './action'

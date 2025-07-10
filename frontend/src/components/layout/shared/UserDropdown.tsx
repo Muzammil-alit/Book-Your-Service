@@ -36,8 +36,8 @@ import { useAppSelector } from '@/redux/useAppSelector'
 import CustomAvatar from '@/@core/components/mui/Avatar'
 import { getInitials } from '@/utils/getInitials'
 import { logout } from '@/views/auth/action'
-import UpdateProfileSideModal from '@/views/pages/user-profile/UpdateProfileSideModal'
-import ChangePasswordSideModal from '@/views/pages/user-profile/ChangePasswordSideModal'
+import UpdateProfileSideModal from '@/components/layout/shared/UpdateProfileSideModal'
+import ChangePasswordSideModal from '@/components/layout/shared/ChangePasswordSideModal'
 
 import { useDispatch } from 'react-redux'
 import { logoutfn } from '../../../redux/slices/login';

@@ -1,6 +1,6 @@
 'use client'
 
-import CardStatWithImage from "@/views/admin/home/Character"
+import CardStatWithImage from "@/views/admin/home/DashboardCards"
 import MonthlyBooking from "@/views/admin/home/RechartsBarChart"
 import { useRouter } from 'next/navigation'
 import { Grid, Modal, Box, Typography, List, ListItem, ListItemText, IconButton, Chip, Avatar } from '@mui/material'
@@ -60,8 +60,8 @@ const Home = () => {
 
         setFilters({
             ...filters,
-        dateFrom: dateFrom && dateFrom ? dateFrom : null,
-        dateTo: dateTo && dateTo ? dateTo : null,
+            dateFrom: dateFrom && dateFrom ? dateFrom : null,
+            dateTo: dateTo && dateTo ? dateTo : null,
         });
     }
 
@@ -244,12 +244,6 @@ const Home = () => {
                     {(() => {
                         const workingCarers = activeCarers?.filter((carer: any) => carer.IsWorking);
                         const availableCarers = activeCarers?.filter((carer: any) => !carer.IsWorking);
-
-                        // Helper to format time
-                        const formatTime = (iso: string) => {
-                            if (!iso) return '';
-                            return dayjs(iso).format('h:mm A');
-                        };
 
                         return (
                             <>

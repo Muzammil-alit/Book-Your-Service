@@ -67,7 +67,7 @@ const schema = yup.object().shape({
 const UpdateProfileSideModal = ({ open, onClose }: UpdateProfileSideModalProps) => {
   const dispatch = useDispatch()
   const userType = sessionStorage.getItem('userType')
-  const user = (userType === "1") ? useAppSelector((state) => state.authReducer.admin.user) : useAppSelector((state) => state.authReducer.carer.user)
+  const user = (userType === "1") ? useAppSelector((state: any) => state.authReducer.admin.user) : useAppSelector((state: any) => state.authReducer.carer.user)
 
   
   interface UserByApi {

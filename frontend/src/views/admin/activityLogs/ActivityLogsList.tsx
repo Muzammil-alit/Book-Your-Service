@@ -25,7 +25,7 @@ import type { RankingInfo } from '@tanstack/match-sorter-utils'
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
 import { ActivityLogType } from '@/types/apps/activityLogsType'
-import ViewLogInfo from './action/ViewLogInfo'
+import ViewLogInfo from './ViewLogInfo'
 import { Chip, Divider, TextField, Tooltip } from '@mui/material'
 import TableFilters from './TableFilters'
 import { UserType } from '@/types/apps/userTypes'

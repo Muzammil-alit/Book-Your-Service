@@ -1,6 +1,6 @@
 import { Box, Button, Dialog, DialogActions, DialogTitle, IconButton, Typography } from '@mui/material';
 import React from 'react';
-import { getClientCarerApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
+import { getClientCarerApiCall } from '@/views/client/booking/actions';
 import { useEffect, useState } from 'react';
 
 import { Select, MenuItem } from '@mui/material';
@@ -37,7 +37,7 @@ const ConfirmBooking: React.FC<ConfirmBookingProps> = ({
 
 
     const [carerName, setCarerName] = useState('')
-    const [carers, setCarers] = useState<Carer[]>(null)
+    const [carers, setCarers] = useState<any>(null)
 
 
 

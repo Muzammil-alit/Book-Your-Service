@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { Card, CardContent, Typography } from '@mui/material'
 
 
-import CalendarWrapper from '@/views/carer/CalendarWrapper'
+import CalendarWrapper from '@/views/carer/calendar/CalendarWrapper'
 
 // Styled Component Imports
 import AppFullCalendar from '@/libs/styles/AppFullCalendar'

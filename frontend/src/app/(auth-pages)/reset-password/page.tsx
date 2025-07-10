@@ -1,5 +1,5 @@
 
-import ResetPassword from '@/views/pages/auth/ResetPassword'
+import ResetPassword from '@/views/auth/ResetPassword'
 import React from 'react'
 
 function page() {

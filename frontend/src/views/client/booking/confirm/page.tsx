@@ -32,8 +32,8 @@ import { useAppSelector } from '@/redux/useAppSelector'
 import { confirmBookingApiCall, updateBookingApiCall } from '../actions'
 import { toast } from 'react-toastify'
 
-import { useBookingContext } from '@/app/(dashboard)/(private)/client/context/BookingContext'
-import { useMultiBookingContext } from '@/app/(dashboard)/(private)/client/context/MultiBookingContext'
+import { useBookingContext } from '@/contexts/bookingContexts/BookingContext'
+import { useMultiBookingContext } from '@/contexts/bookingContexts/MultiBookingContext'
 import { useMediaQuery, useTheme } from '@mui/material';
 
 // Initialize dayjs plugins

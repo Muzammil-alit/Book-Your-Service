@@ -15,7 +15,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import type { CalendarOptions } from '@fullcalendar/core'
 
-import EditBookingDialog from './EditBooking'
+import EditBookingDialog from '../EditBooking'
 
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { toast } from 'react-toastify'

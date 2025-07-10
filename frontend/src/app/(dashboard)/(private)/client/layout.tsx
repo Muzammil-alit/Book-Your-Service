@@ -2,8 +2,8 @@
 
 import type { ChildrenType } from '@core/types'
 import ClientRouteGuard from '@/hocs/ClientRouteGuard'
-import { MultiBookingProvider } from './context/MultiBookingContext'
-import { BookingProvider } from './context/BookingContext'
+import { MultiBookingProvider } from '../../../../contexts/bookingContexts/MultiBookingContext'
+import { BookingProvider } from '../../../../contexts/bookingContexts/BookingContext'
 
 const ClientLayout = ({ children }: ChildrenType) => {
   return (

@@ -29,7 +29,7 @@ import 'dayjs/locale/en-gb';
 import { getMyBookingsApiCall, getBookingbyIDApiCall } from '../booking/actions';
 
 import { useAppSelector } from '@/redux/useAppSelector'
-import { useBookingContext } from '@/app/(dashboard)/(private)/client/context/BookingContext';;
+import { useBookingContext } from '@/contexts/bookingContexts/BookingContext';;
 
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';

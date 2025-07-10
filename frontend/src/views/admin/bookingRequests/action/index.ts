@@ -28,7 +28,7 @@ export const getMyBookingsWithFiltersApiCall = async (filters: object) => {
 
 
 
-export const updateBookingStatusApiCall = async (BookingID: string | number, BookingStatus: number, carerID: number | string | null, userID: any, reason?: string, cancelAll?: boolean, cancelledByAdmin?: boolean | null) => {
+export const updateBookingStatusApiCall = async (BookingID: string | number, BookingStatus: number, carerID: number | string | null, userID: any, reason?: string | null, cancelAll?: boolean, cancelledByAdmin?: boolean | null) => {
   
 
   try {

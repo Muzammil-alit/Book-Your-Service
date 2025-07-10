@@ -2,7 +2,7 @@
 
 import TimeslotSelection from '@/views/client/booking/timeslot/page'
 import React from 'react'
-import { MultiBookingProvider } from '../../context/MultiBookingContext'
+import { MultiBookingProvider } from '../../../../../../contexts/bookingContexts/MultiBookingContext'
 
 function page() {
   return (

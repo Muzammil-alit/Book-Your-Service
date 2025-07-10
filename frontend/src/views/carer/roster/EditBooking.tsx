@@ -25,8 +25,8 @@ import { useForm, Controller, set } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import { getBookingbyIDApiCall } from '../admin/bookingRequests/action';
-import { updateCompletionStatus } from './action';
+import { getBookingbyIDApiCall } from '../../admin/bookingRequests/action';
+import { updateCompletionStatus } from '../calendar/action';
 import { formatTimeTo } from '@/utils/commonFunction';
 import { useSelector } from 'react-redux';
 

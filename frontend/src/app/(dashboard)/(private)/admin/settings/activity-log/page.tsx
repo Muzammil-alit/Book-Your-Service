@@ -1,4 +1,4 @@
-import ActivityLogs from '@/views/admin/activityLogs/page'
+import ActivityLogs from '@/views/admin/activityLogs'
 import React from 'react'
 
 function page() {

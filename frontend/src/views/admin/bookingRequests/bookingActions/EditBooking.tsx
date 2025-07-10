@@ -33,12 +33,12 @@ import { toast } from 'react-toastify';
 
 
 import { getBookingbyIDApiCall } from '../action';
-import { getClientServicesApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
-import { getTimeslotsApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
-import { getClientCarerApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
+import { getClientServicesApiCall } from '@/views/client/booking/actions';
+import { getTimeslotsApiCall } from '@/views/client/booking/actions';
+import { getClientCarerApiCall } from '@/views/client/booking/actions';
 import { getAvailableDates } from '@/views/client/booking/actions';
 
-import { updateBookingApiCall } from '@/app/(dashboard)/(private)/client/booking/actions';
+import { updateBookingApiCall } from '@/views/client/booking/actions';
 
 import { formatTimeTo } from '@/utils/commonFunction';
 
@@ -149,16 +149,16 @@ const EditBookingDialog: React.FC<EditBookingProps> = ({
 
 
   const [services, setServices] = useState<any>('');
-  const [selectedService, setSelectedService] = useState<number>(null);
+  const [selectedService, setSelectedService] = useState<number | null>(null);
 
   const [durations, setDurations] = useState([])
-  const [selectedDuration, setSelectedDuration] = useState<number>(null);
+  const [selectedDuration, setSelectedDuration] = useState<number | null>(null);
 
   const [bookingDate, setBookingDate] = useState('');
 
   const [dates, setDates] = useState(null)
 
-  const [availableTimes, setAvailableTimes] = useState(null)
+  const [availableTimes, setAvailableTimes] = useState<object | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | Dayjs>('');
 
   const [carers, setCarers] = useState<any>('');
@@ -184,7 +184,7 @@ const EditBookingDialog: React.FC<EditBookingProps> = ({
 
 
 
-  const schema: yup.ObjectSchema<FormData> = yup.object().shape({
+  const schema = yup.object().shape({
     bookingDate: yup.mixed().nullable(),
     startTime: yup.mixed().nullable(),
     service: yup.string().required('Service is required'),
@@ -211,11 +211,13 @@ const EditBookingDialog: React.FC<EditBookingProps> = ({
   }
 
 
+  type FormValidateType = yup.InferType<typeof schema>
+
   const {
     control,
     handleSubmit,
     reset
-  } = useForm<FormData>({
+  } = useForm<FormValidateType>({
     resolver: yupResolver(schema),
     defaultValues
   });
@@ -239,7 +241,7 @@ const EditBookingDialog: React.FC<EditBookingProps> = ({
       const fetchBookingData = async () => {
         setLoading(true); // Set loading to true when fetching starts
         try {
-          const res = await getBookingbyIDApiCall(Number(bookingData?.BookingID));
+          const res = await getBookingbyIDApiCall(Number(bookingData?.BookingID)) as any;
           if (Array.isArray(res)) {
             setInitData(res[0]);
           }
@@ -317,7 +319,7 @@ const EditBookingDialog: React.FC<EditBookingProps> = ({
       if (isCustom) {
         setDurationOption('Custom')
         setCustomRange(initData?.FrequencyType == 1 ? 'week' : 'month')
-        setCustomDuration(initData?.FrequencyDuration)
+        setCustomDuration(initData?.FrequencyDuration as number)
       }
 
       else {
@@ -358,7 +360,7 @@ const EditBookingDialog: React.FC<EditBookingProps> = ({
 
 
       if (Array.isArray(timeslots)) {
-        setAvailableTimes(timeslots);
+        setAvailableTimes(timeslots as any);
       }
 
     } catch (error) {
@@ -444,7 +446,7 @@ const EditBookingDialog: React.FC<EditBookingProps> = ({
   const shouldDisableTime = (timeValue: Dayjs) => {
 
 
-    if (!availableTimes || availableTimes.length === 0) {
+    if (!availableTimes || availableTimes?.length === 0) {
       // setTimeError('No time slots available for selected date');
       return true;
     }

@@ -39,7 +39,7 @@ import Menu from '@mui/material/Menu'
 
 import { getAdminRosterApiCall } from './action'
 import { toast } from 'react-toastify'
-import EditBookingDialog from '../../carer/EditBooking'
+import EditBookingDialog from './EditBooking'
 
 import { useEffect } from 'react'
 

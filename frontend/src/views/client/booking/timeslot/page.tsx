@@ -21,8 +21,8 @@ import timezone from 'dayjs/plugin/timezone'
 import { getAvailableDates, getTimeslotsApiCall } from '../actions'
 
 
-import { useBookingContext } from '@/app/(dashboard)/(private)/client/context/BookingContext'
-import { useMultiBookingContext } from '@/app/(dashboard)/(private)/client/context/MultiBookingContext'
+import { useBookingContext } from '@/contexts/bookingContexts/BookingContext'
+import { useMultiBookingContext } from '@/contexts/bookingContexts/MultiBookingContext'
 
 // Initialize dayjs plugins
 dayjs.extend(utc)

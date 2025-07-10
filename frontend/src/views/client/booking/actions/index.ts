@@ -32,7 +32,7 @@ export const getClientServicesApiCall = async () => {
 };
 
 
-export const getAvailableDates = async (serviceID: number | string, bookingID: any) => {
+export const getAvailableDates = async (serviceID: number | null, bookingID: any) => {
   try {
     if (!serviceID) {
       return
@@ -79,7 +79,7 @@ export const getTimeslotsApiCall = async (serviceID: number, serviceDurationID: 
   }
 };
 
-export const getClientCarerApiCall = async (serviceID: number, duration: number, bookingDateTime: string, bookingID: any) => {
+export const getClientCarerApiCall = async (serviceID: number, duration: number, bookingDateTime: string, bookingID?: any) => {
   try {
     const response = await clientBookingService.getClientCarer(serviceID, duration, bookingDateTime, bookingID);
     if (!response.isOk) {

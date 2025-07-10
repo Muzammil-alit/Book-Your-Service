@@ -13,7 +13,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
 
-import { useBookingContext } from '@/app/(dashboard)/(private)/client/context/BookingContext'
+import { useBookingContext } from '@/contexts/bookingContexts/BookingContext'
 
 
 // Define the booking step paths
